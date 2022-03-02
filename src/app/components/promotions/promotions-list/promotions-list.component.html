@@ -1,0 +1,209 @@
+<div class="container-fluid" *ngIf="loaded">
+    <div class="m-t-15">
+        <button class="btn btn-primary m-r-10 back-button" type="button" routerLink="">Back</button>
+    </div>
+    <div class="card">
+        <div class="row product-page-main card-body">
+            <div class="col-xl-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="#active" [ngClass]="{ 'active':activeTab==='active'}" class="nav-link active"
+                            data-toggle="tab">Active Promotions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#future" [ngClass]="{ 'active':activeTab==='future'}" class="nav-link active"
+                            data-toggle="tab">Future Promotions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#past" [ngClass]="{ 'active':activeTab==='past'}" class="nav-link active"
+                            data-toggle="tab">Past Promotions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#promotions" [ngClass]="{ 'active':activeTab==='promotions'}" class="nav-link active"
+                            data-toggle="tab">All Promotions</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tab-content">
+
+                <div class="add-product-form tab-pane fade show active" style="text-align: center;" id="active">
+                    <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th width="10%">#</th>
+                                <th width="10%">Title</th>
+                                <th width="10%">Type</th>
+                                <th width="10%">Value</th>
+                                <th width="15%">Start</th>
+                                <th width="15%">End</th>
+                                <th width="15%">Active</th>
+                                <th width="15%">Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let promotion of active; let i=index">
+                                <td>{{i + 1}}</td>
+                                <td>{{ promotion.title }}</td>
+                                <td>{{ promotion.type }}</td>
+                                <td *ngIf="promotion.type == 'amount'">${{ promotion.value }}</td>
+                                <td *ngIf="promotion.type == 'percentage'">{{ promotion.value}}%</td>
+                                <td>{{ promotion.start }}</td>
+                                <td>{{ promotion.end}}</td>
+                                <td>{{ promotion.active}}</td>
+                                <td>
+                                    <img src="assets/images/icons/view-gray.png"
+                                        onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        (click)="viewPromotion(promotion._id)">
+                                    <img src="assets/images/icons/edit-gray.png"
+                                        onmouseover="this.src='assets/images/icons/edit-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/edit-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        (click)="editPromotion(promotion._id)">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class=" btn btn-lg btn-outline-primary float-right" (click)="goToCreateNewPromotion()"
+                        style="margin-top: 10px;">Create
+                        New
+                        Promotion</button>
+                </div>
+
+                <div class="add-product-form tab-pane fade show" style="text-align: center;" id="future">
+                    <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th width="10%">#</th>
+                                <th width="10%">Title</th>
+                                <th width="10%">Type</th>
+                                <th width="10%">Value</th>
+                                <th width="15%">Start</th>
+                                <th width="15%">End</th>
+                                <th width="15%">Active</th>
+                                <th width="15%">Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let promotion of future; let i=index">
+                                <td>{{i + 1}}</td>
+                                <td>{{ promotion.title }}</td>
+                                <td>{{ promotion.type }}</td>
+                                <td *ngIf="promotion.type == 'amount'">${{ promotion.value }}</td>
+                                <td *ngIf="promotion.type == 'percentage'">{{ promotion.value}}%</td>
+                                <td>{{ promotion.start }}</td>
+                                <td>{{ promotion.end}}</td>
+                                <td>{{ promotion.active}}</td>
+                                <td>
+                                    <img src="assets/images/icons/view-gray.png"
+                                        onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        (click)="viewPromotion(promotion._id)">
+                                    <img src="assets/images/icons/edit-gray.png"
+                                        onmouseover="this.src='assets/images/icons/edit-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/edit-gray.png';"
+                                        href="javascript:void(0)" class="link-icon">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class=" btn btn-lg btn-outline-primary float-right" (click)="goToCreateNewPromotion()"
+                        style="margin-top: 10px;">Create
+                        New
+                        Promotion</button>
+                </div>
+
+                <div class="add-product-form tab-pane fade show" style="text-align: center;" id="past">
+                    <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th width="10%">#</th>
+                                <th width="10%">Title</th>
+                                <th width="10%">Type</th>
+                                <th width="10%">Value</th>
+                                <th width="15%">Start</th>
+                                <th width="15%">End</th>
+                                <th width="15%">Active</th>
+                                <th width="15%">Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let promotion of past; let i=index">
+                                <td>{{i + 1}}</td>
+                                <td>{{ promotion.title }}</td>
+                                <td>{{ promotion.type }}</td>
+                                <td *ngIf="promotion.type == 'amount'">${{ promotion.value }}</td>
+                                <td *ngIf="promotion.type == 'percentage'">{{ promotion.value}}%</td>
+                                <td>{{ promotion.start }}</td>
+                                <td>{{ promotion.end}}</td>
+                                <td>{{ promotion.active}}</td>
+                                <td>
+                                    <img src="assets/images/icons/view-gray.png"
+                                        onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        (click)="viewPromotion(promotion._id)">
+                                    <img src="assets/images/icons/edit-gray.png"
+                                        onmouseover="this.src='assets/images/icons/edit-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/edit-gray.png';"
+                                        href="javascript:void(0)" class="link-icon">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class=" btn btn-lg btn-outline-primary float-right" (click)="goToCreateNewPromotion()"
+                        style="margin-top: 10px;">Create
+                        New
+                        Promotion</button>
+                </div>
+
+                <div class="add-product-form tab-pane fade show" style="text-align: center;" id="promotions">
+                    <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th width="10%">#</th>
+                                <th width="10%">Title</th>
+                                <th width="10%">Type</th>
+                                <th width="10%">Value</th>
+                                <th width="15%">Start</th>
+                                <th width="15%">End</th>
+                                <th width="15%">Active</th>
+                                <th width="15%">Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let promotion of promotions; let i=index">
+                                <td>{{i + 1}}</td>
+                                <td>{{ promotion.title }}</td>
+                                <td>{{ promotion.type }}</td>
+                                <td *ngIf="promotion.type == 'amount'">${{ promotion.value }}</td>
+                                <td *ngIf="promotion.type == 'percentage'">{{ promotion.value}}%</td>
+                                <td>{{ promotion.start }}</td>
+                                <td>{{ promotion.end}}</td>
+                                <td>{{ promotion.active}}</td>
+                                <td>
+                                    <img src="assets/images/icons/view-gray.png"
+                                        onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        (click)="viewPromotion(promotion._id)">
+                                    <img src="assets/images/icons/edit-gray.png"
+                                        onmouseover="this.src='assets/images/icons/edit-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/edit-gray.png';"
+                                        href="javascript:void(0)" class="link-icon">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class=" btn btn-lg btn-outline-primary float-right" (click)="goToCreateNewPromotion()"
+                        style="margin-top: 10px;">Create
+                        New
+                        Promotion</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

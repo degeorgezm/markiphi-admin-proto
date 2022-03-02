@@ -1,0 +1,237 @@
+<div class="container-fluid" *ngIf="loaded">
+    <div class="m-t-15">
+        <button class="btn btn-primary m-r-10 back-button" type="button"
+            routerLink="/products/product-detail/{{product._id}}">Back</button>
+    </div>
+    <div class="card">
+        <div class="row product-page-main card-body">
+            <div class="col-xl-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="#active" [ngClass]="{ 'active':activeTab==='active'}" class="nav-link active"
+                            data-toggle="tab">Active Sales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#future" [ngClass]="{ 'active':activeTab==='future'}" class="nav-link active"
+                            data-toggle="tab">Future Sales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#past" [ngClass]="{ 'active':activeTab==='past'}" class="nav-link active"
+                            data-toggle="tab">Past Sales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#sales" [ngClass]="{ 'active':activeTab==='sales'}" class="nav-link active"
+                            data-toggle="tab">All Sales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#price_changes" [ngClass]="{ 'active':activeTab==='price_changes'}"
+                            class="nav-link active" data-toggle="tab">Price Changes</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tab-content">
+
+                <div class="add-product-form tab-pane fade show active" style="text-align: center;" id="active">
+                    <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th width="10%">#</th>
+                                <th width="15%">Title</th>
+                                <th width="10%">Type</th>
+                                <th width="10%">Value</th>
+                                <th width="15%">Start</th>
+                                <th width="15%">End</th>
+                                <th width="15%">Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let sale of active; let i=index">
+                                <td>{{i + 1}}</td>
+                                <td>{{ sale.title }}</td>
+                                <td>{{ sale.type }}</td>
+                                <td *ngIf="sale.type == 'amount'">${{ sale.value }}</td>
+                                <td *ngIf="sale.type == 'percentage'">{{ sale.value}}%</td>
+                                <td>{{ sale.start }}</td>
+                                <td>{{ sale.end}}</td>
+                                <td>
+                                    <img src="assets/images/icons/view-gray.png"
+                                        onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        routerLink="/products/product-sales-view/{{product._id}}/sale/{{sale._id}}">
+                                    <img src="assets/images/icons/edit-gray.png"
+                                        onmouseover="this.src='assets/images/icons/edit-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/edit-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        routerLink="/products/product-sales-edit/{{product._id}}/sale/{{sale._id}}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class=" btn btn-lg btn-outline-primary float-right" (click)="goToCreateNewSale()"
+                        style="margin-top: 10px;">Create
+                        New
+                        Sale</button>
+                </div>
+
+                <div class="add-product-form tab-pane fade show" style="text-align: center;" id="future">
+                    <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th width="10%">#</th>
+                                <th width="15%">Title</th>
+                                <th width="10%">Type</th>
+                                <th width="10%">Value</th>
+                                <th width="15%">Start</th>
+                                <th width="15%">End</th>
+                                <th width="15%">Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let sale of future; let i=index">
+                                <td>{{i + 1}}</td>
+                                <td>{{ sale.title }}</td>
+                                <td>{{ sale.type }}</td>
+                                <td *ngIf="sale.type == 'amount'">${{ sale.value }}</td>
+                                <td *ngIf="sale.type == 'percentage'">{{ sale.value}}%</td>
+                                <td>{{ sale.start }}</td>
+                                <td>{{ sale.end}}</td>
+                                <td>
+                                    <img src="assets/images/icons/view-gray.png"
+                                        onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        routerLink="/products/product-sales-view/{{product._id}}/sale/{{sale._id}}">
+                                    <img src="assets/images/icons/edit-gray.png"
+                                        onmouseover="this.src='assets/images/icons/edit-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/edit-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        routerLink="/products/product-sales-edit/{{product._id}}/sale/{{sale._id}}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class=" btn btn-lg btn-outline-primary float-right" (click)="goToCreateNewSale()"
+                        style="margin-top: 10px;">Create
+                        New
+                        Sale</button>
+                </div>
+
+                <div class="add-product-form tab-pane fade show" style="text-align: center;" id="past">
+                    <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th width="10%">#</th>
+                                <th width="15%">Title</th>
+                                <th width="10%">Type</th>
+                                <th width="10%">Value</th>
+                                <th width="15%">Start</th>
+                                <th width="15%">End</th>
+                                <th width="15%">Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let sale of past; let i=index">
+                                <td>{{i + 1}}</td>
+                                <td>{{ sale.title }}</td>
+                                <td>{{ sale.type }}</td>
+                                <td *ngIf="sale.type == 'amount'">${{ sale.value }}</td>
+                                <td *ngIf="sale.type == 'percentage'">{{ sale.value}}%</td>
+                                <td>{{ sale.start }}</td>
+                                <td>{{ sale.end}}</td>
+                                <td>
+                                    <img src="assets/images/icons/view-gray.png"
+                                        onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        routerLink="/products/product-sales-view/{{product._id}}/sale/{{sale._id}}">
+                                    <img src="assets/images/icons/edit-gray.png"
+                                        onmouseover="this.src='assets/images/icons/edit-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/edit-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        routerLink="/products/product-sales-edit/{{product._id}}/sale/{{sale._id}}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class=" btn btn-lg btn-outline-primary float-right" (click)="goToCreateNewSale()"
+                        style="margin-top: 10px;">Create
+                        New
+                        Sale</button>
+                </div>
+
+                <div class="add-product-form tab-pane fade show" style="text-align: center;" id="sales">
+                    <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th width="10%">#</th>
+                                <th width="15%">Title</th>
+                                <th width="10%">Type</th>
+                                <th width="10%">Value</th>
+                                <th width="15%">Start</th>
+                                <th width="15%">End</th>
+                                <th width="15%">Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let sale of sales; let i=index">
+                                <td>{{i + 1}}</td>
+                                <td>{{ sale.title }}</td>
+                                <td>{{ sale.type }}</td>
+                                <td *ngIf="sale.type == 'amount'">${{ sale.value }}</td>
+                                <td *ngIf="sale.type == 'percentage'">{{ sale.value}}%</td>
+                                <td>{{ sale.start }}</td>
+                                <td>{{ sale.end}}</td>
+                                <td>
+                                    <img src="assets/images/icons/view-gray.png"
+                                        onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        routerLink="/products/product-sales-view/{{product._id}}/sale/{{sale._id}}">
+                                    <img src="assets/images/icons/edit-gray.png"
+                                        onmouseover="this.src='assets/images/icons/edit-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/edit-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        routerLink="/products/product-sales-edit/{{product._id}}/sale/{{sale._id}}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class=" btn btn-lg btn-outline-primary float-right" (click)="goToCreateNewSale()"
+                        style="margin-top: 10px;">Create
+                        New
+                        Sale</button>
+                </div>
+
+                <div class="add-product-form tab-pane fade show" style="text-align: center;" id="price_changes">
+                    <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th width="10%">#</th>
+                                <th width="20%">Price</th>
+                                <th width="40%">Date</th>
+                                <th width="15%">User</th>
+                                <th width="15%">Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let price_change of price_changes; let i=index">
+                                <td>{{i + 1}}</td>
+                                <td>${{ price_change.price }}</td>
+                                <td>{{ price_change.date }}</td>
+                                <td>{{ price_change.user.username }}</td>
+                                <td>
+                                    <img src="assets/images/icons/view-gray.png"
+                                        onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                        href="javascript:void(0)" class="link-icon" (click)="viewPriceChange(i)">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

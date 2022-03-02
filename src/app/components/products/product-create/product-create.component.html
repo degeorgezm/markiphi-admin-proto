@@ -1,0 +1,234 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <form (ngSubmit)="onSubmit()" #f="ngForm">
+                    <div class="card-body">
+                        <div class="row product-adding">
+                            <div class="col-xl-5">
+                                <div class="row">
+                                    <div style="width: 100%; padding-bottom: 10px;">
+                                        <h5>Primary Photo</h5>
+                                    </div>
+                                    <div class="col-xl-9 xl-50 col-sm-6 col-9">
+                                        <img [src]="url.img" alt="" class="img-fluid image_zoom_1">
+                                        <input class="image-upload" type="file" (change)="readUrl($event)" required=""
+                                            #img id="image" ngModel name="imageurl">
+                                        <p class="image-message" *ngIf="imageError">{{imageMessage}}</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div style="width: 100%; padding-bottom: 10px;">
+                                        <h5>Additional Photos</h5>
+                                    </div>
+                                    <div *ngFor="let value of imageArray; let i=index "
+                                        class="col-xl-9 xl-50 col-sm-6 col-9">
+                                        <img [src]="images[i]" alt="" class="img-fluid image_zoom_1" id="addimage1"
+                                            style="padding-top:10px;">
+                                        <span><input class="image-upload" type="file" (change)="readFile($event, i)"
+                                                #img id="imageinput_{{i}}" ngModel name="imageinput_{{i}}"
+                                                style="width: 180px;">
+                                            <img *ngIf="i == (imageCounter - 1)" src="assets/images/icons/plus-gray.png"
+                                                onmouseover="this.src='assets/images/icons/plus-blue.png';"
+                                                onmouseout="this.src='assets/images/icons/plus-gray.png';"
+                                                href="javascript:void(0)" class="plus-icon" (click)="incrementImage()">
+                                            <img *ngIf="(i == (imageCounter - 1)) && (i > 0)"
+                                                src="assets/images/icons/minus-gray.png"
+                                                onmouseover="this.src='assets/images/icons/minus-blue.png';"
+                                                onmouseout="this.src='assets/images/icons/minus-gray.png';"
+                                                href="javascript:void(0)" class="minus-icon" (click)="decrementImage()">
+                                        </span>
+                                        <p class="image-message" *ngIf="imagesErrors[i]">{{imagesErrorsMessages[i]}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-7">
+                                <div class="add-product-form">
+                                    <div class="form-group row">
+                                        <label for="title" class="col-xl-3 col-sm-4 mb-0">Title
+                                            :</label>
+                                        <input class="form-control col-xl-8 col-sm-7" id="title" type="text" required=""
+                                            ngModel name="title">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="price" class="col-xl-3 col-sm-4 mb-0">Price
+                                            :</label>
+                                        <input class="form-control col-xl-8 col-sm-7" id="price" type="number"
+                                            required="" ngModel name="price">
+                                    </div>
+                                    <!--
+                                    <div class="form-group row">
+                                        <label for="discount" class="col-xl-3 col-sm-4 mb-0">Discount
+                                            :</label>
+                                        <input class="form-control col-xl-8 col-sm-7" id="discount" type="number"
+                                            ngModel name="discount">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="sale" class="col-xl-3 col-sm-4 mb-0">
+                                            Sale
+                                            :</label>
+                                        <select class="form-control digits col-xl-8 col-sm-7" id="sale" required=""
+                                            ngModel name="sale">
+                                            <option value="" disabled select>Sale</option>
+                                            <option value="{{true}}"> True</option>
+                                            <option value="{{false}}"> False</option>
+                                        </select>
+                                    </div>
+                                    -->
+                                    <div class="form-group row">
+                                        <label for="brand" class="col-xl-3 col-sm-4 mb-0">Select
+                                            Brand
+                                            :</label>
+                                        <select class="form-control col-xl-8 col-sm-7" name="brand" id="brand"
+                                            required="" ngModel #brand="ngModel" placeholder="Brand">
+                                            <option value="" disabled select>Brand</option>
+                                            <option *ngFor="let brand of brands" value="{{brand._id}}">
+                                                {{brand.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="line" class="col-xl-3 col-sm-4 mb-0">Select
+                                            Line
+                                            :</label>
+                                        <select class="form-control col-xl-8 col-sm-7" id="line" required="" ngModel
+                                            name="department">
+                                            <option value="" disabled selected>Line</option>
+                                            <option *ngFor="let line of departments" value="{{line._id}}">
+                                                {{line.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="type" class="col-xl-3 col-sm-4 mb-0">Select
+                                            Type
+                                            :</label>
+                                        <select class="form-control digits col-xl-8 col-sm-7" id="type" required=""
+                                            ngModel name="type">
+                                            <option value="" disabled selected>Type</option>
+                                            <option *ngFor="let type of types" value="{{type._id}}">
+                                                {{type.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="group_0" class="col-xl-3 col-sm-4 mb-0">Select
+                                            Groups
+                                            :</label>
+                                        <select class="form-control digits col-xl-8 col-sm-7" id="group_0"
+                                            name="group_0" disabled>
+                                            <option value="{{defaultGroupValue}}" selected>Everything</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group row" *ngFor="let value of groupArray; let i = index">
+                                        <label for="group_{{i + 1}}" class="col-xl-3 col-sm-4 mb-0">&nbsp;</label>
+                                        <select class="form-control digits col-xl-8 col-sm-7" id="group_{{i + 1}}"
+                                            required="" ngModel name="group_{{i + 1}}">
+                                            <option value="" disabled selected>Group</option>
+                                            <option *ngFor="let group of groups" value="{{group._id}}">
+                                                {{group.name}}</option>
+                                        </select>
+                                        <img *ngIf="i == (groupCounter - 1)" src="assets/images/icons/plus-gray.png"
+                                            onmouseover="this.src='assets/images/icons/plus-blue.png';"
+                                            onmouseout="this.src='assets/images/icons/plus-gray.png';"
+                                            href="javascript:void(0)" class="plus-icon" (click)="incrementGroup()">
+                                        <img *ngIf="(i == (groupCounter - 1)) && (i > 0)"
+                                            src="assets/images/icons/minus-gray.png"
+                                            onmouseover="this.src='assets/images/icons/minus-blue.png';"
+                                            onmouseout="this.src='assets/images/icons/minus-gray.png';"
+                                            href="javascript:void(0)" class="minus-icon" (click)="decrementGroup()">
+                                    </div>
+                                    <div class="form-group row" *ngFor="let value of variantArray; let i = index">
+                                        <label *ngIf="i == 0; else emptyvariantlabel" for="variant{{i}}"
+                                            class="col-xl-3 col-sm-4 mb-0">Select
+                                            Variants
+                                            :</label>
+                                        <ng-template #emptyvariantlabel>
+                                            <label *ngIf="i != 0;" for="variant{{i}}"
+                                                class="col-xl-3 col-sm-4 mb-0">&nbsp;</label>
+                                        </ng-template>
+                                        <select class="form-control digits col-xl-8 col-sm-7" id="variant_{{i}}"
+                                            required="" ngModel name="variant_{{i}}">
+                                            <option value="" disabled selected>Variant</option>
+                                            <option *ngFor="let variant of variants" value="{{variant._id}}">
+                                                {{variant.name}}</option>
+                                        </select>
+                                        <img *ngIf="i == (variantCounter - 1)" src="assets/images/icons/plus-gray.png"
+                                            onmouseover="this.src='assets/images/icons/plus-blue.png';"
+                                            onmouseout="this.src='assets/images/icons/plus-gray.png';"
+                                            href="javascript:void(0)" class="plus-icon" (click)="incrementVariant()">
+                                        <img *ngIf="(i == (variantCounter - 1)) && (i > 0)"
+                                            src="assets/images/icons/minus-gray.png"
+                                            onmouseover="this.src='assets/images/icons/minus-blue.png';"
+                                            onmouseout="this.src='assets/images/icons/minus-gray.png';"
+                                            href="javascript:void(0)" class="minus-icon" (click)="decrementVariant()">
+                                    </div>
+                                    <div class="form-group row" *ngFor="let value of sizeArray; let i = index">
+                                        <label *ngIf="i == 0; else emptysizelabel" for="size{{i}}"
+                                            class="col-xl-3 col-sm-4 mb-0">Select
+                                            Sizes
+                                            :</label>
+                                        <ng-template #emptysizelabel>
+                                            <label *ngIf="i != 0;" for="size{{i}}"
+                                                class="col-xl-3 col-sm-4 mb-0">&nbsp;</label>
+                                        </ng-template>
+                                        <select class="form-control digits col-xl-8 col-sm-7" id="size_{{i}}"
+                                            required="" ngModel name="size_{{i}}">
+                                            <option value="" disabled selected>Size</option>
+                                            <option *ngFor="let size of sizes" value="{{size._id}}">
+                                                {{size.name}}</option>
+                                        </select>
+                                        <img *ngIf="i == (sizeCounter - 1)" src="assets/images/icons/plus-gray.png"
+                                            onmouseover="this.src='assets/images/icons/plus-blue.png';"
+                                            onmouseout="this.src='assets/images/icons/plus-gray.png';"
+                                            href="javascript:void(0)" class="plus-icon" (click)="incrementSize()">
+                                        <img *ngIf="(i == (sizeCounter - 1)) && (i > 0)"
+                                            src="assets/images/icons/minus-gray.png"
+                                            onmouseover="this.src='assets/images/icons/minus-blue.png';"
+                                            onmouseout="this.src='assets/images/icons/minus-gray.png';"
+                                            href="javascript:void(0)" class="minus-icon" (click)="decrementSize()">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="tags-in" class="col-xl-3 col-sm-4 mb-0">Tags
+                                            :</label>
+                                        <input class="form-control col-xl-8 col-sm-7" id="tags-in" type="text" ngModel
+                                            name="tags-in" required="">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="description" class="col-xl-3 col-sm-4 mb-0">Description
+                                            :</label>
+                                        <editor apiKey="d7wm10jds6xczz0fzcg0zsighb5iuw6b1wy7ft1oq61m37lx"
+                                            style="width: 100%; padding-top:20px;"
+                                            initialValue="<p>Enter details about the product.</p>" [init]="{
+                                              height: 500,
+                                              menubar: false,
+                                              plugins: [
+                                                'advlist autolink lists link image charmap print',
+                                                'preview anchor searchreplace visualblocks code',
+                                                'fullscreen insertdatetime media table paste',
+                                                'help wordcount'
+                                              ],
+                                              toolbar:
+                                                'undo redo | formatselect | bold italic | \
+                                                alignleft aligncenter alignright alignjustify | \
+                                                bullist numlist outdent indent | help'
+                                            }" ngModel name="description">
+                                        </editor>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-0">
+                                    <div class="product-buttons col-sm-8 offset-xl-3 offset-sm-4">
+                                        <button type="submit" class="btn btn-primary mr-1"
+                                            [disabled]="!f.valid">Add</button>
+                                        <button type="button" class="btn btn-light"
+                                            routerLink="/dashboard/default">Discard</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

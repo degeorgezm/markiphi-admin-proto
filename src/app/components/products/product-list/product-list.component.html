@@ -1,0 +1,49 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid" *ngIf="loaded">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="category-table custom-datatable">
+                        <div class="table-responsive">
+                            <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Title</th>
+                                        <th>Price</th>
+                                        <th>Line</th>
+                                        <th>Type</th>
+                                        <th>Date Created</th>
+                                        <th>Sold</th>
+                                        <th>Returned</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let product of products">
+                                        <td><a routerLink="/products/product-detail/{{product._id}}"
+                                                href=" javascript:void(0)">
+                                                <img class=" table-image" [src]="product.image.src"></a>
+                                        </td>
+                                        <td>{{ product.title }}</td>
+                                        <td *ngIf="product.sale; else regularprice">${{(product.price -
+                                            product.discount).toFixed(2)}} <del>${{product.price}}</del></td>
+                                        <ng-template #regularprice>
+                                            <td>${{product.price}}</td>
+                                        </ng-template>
+                                        <td>{{ product.department.name }}</td>
+                                        <td>{{ product.type.name }}</td>
+                                        <td>{{ product.timeString}} {{product.dateString}}</td>
+                                        <td>{{ product.sold }}</td>
+                                        <td>{{ product.returned }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

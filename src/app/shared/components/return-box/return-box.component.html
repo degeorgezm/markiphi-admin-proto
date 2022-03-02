@@ -1,0 +1,109 @@
+<div class="order-box">
+    <div class="order-box-header">
+        <div class="order-inner-header-box" style="width: 100%;">
+            <div class="order-placed-column">
+                <div class="header-label">RETURN REQUESTED</div>
+                <div class="header-value">{{returnTimeString}} {{returnDateString}}</div>
+            </div>
+            <div class="order-details-column">
+                <div class="header-label">ORDER # {{order.orderId}}</div>
+                <div class="header-label">RETURN # {{item.return_request.returnId}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="order-box-body">
+        <div class="order-box-inner-body">
+            <div class="order-box-upper-box">
+
+                <div class="order-box-upper-box-left">
+                    <h4>Item Status: <b>{{returnStatusString}}</b></h4>
+
+                    <div class="order-box-upper-box-right">
+                        <div class="horizontal-float-button">
+                            <button class="btn btn-success primary-button" (click)="submit(true)">Approve</button>
+                        </div>
+                        <div class="horizontal-float-button">
+                            <button class="btn btn-primary primary-button" (click)="submit(false)">Deny</button>
+                        </div>
+                    </div>
+                    <br><br>
+                    <hr>
+                </div>
+
+            </div>
+            <div class="order-box-second-box">
+                <div class="order-box-second-first-half">
+                    <h6>This return was requested on <b>{{returnDateString}}</b> at <b>{{returnTimeString}}</b></h6>
+                    <h6>The request is for <b>{{item.return_request.quantity}}</b> items.</h6>
+                    <h6>
+                        The method of return is <b>{{item.return_request.return_method}}</b>.
+                    </h6>
+                    <h6>
+                        The refund method is <b>{{item.return_request.refund_method}}</b>.
+                    </h6>
+                    <h6>
+                        The total amount of the return is for
+                        <b>{{"$"+(item.return_request.quantity*item.discount_price).toFixed(2)}}</b>
+                    </h6>
+                    <h6>The reason listed for the return is <b>{{item.return_request.reason}}</b></h6>
+                    <h6 *ngIf="item.return_request.reason == 'Other'">Additional information provided for the return
+                        reason is: <b>{{item.return_request.other_reason}}</b></h6>
+                    <h6>It has been <b>{{hoursSinceReturnRequest}}</b> hours since the return request has been made.
+                    </h6>
+                </div>
+                <div class=" order-box-second-second-half" *ngIf="_prevLoaded">
+                    <h6>The username for this return is <b>{{order.user.email}}</b>.</h6>
+                    <h6>They have a total of <b>{{totalPrevOrders}}</b> previous order with pending or completed
+                        returns in them.</h6>
+                    <h6>They have a total of <b>{{totalOfPrevItems}}</b> previous items pending or completed
+                        returned.</h6>
+                    <h6>The value of their previous returns is <b>{{"$"+totalValueOfPrevItems}}</b>.</h6>
+                    <h6>There are a total of <b>{{totalPrevDeniedReturns}}</b> previously denied items from their
+                        requested returns
+                        for an amount of <b>{{"$"+totalValuePrevDenied}}</b>.</h6>
+                    <h6 *ngIf="numPrevReturns > 0">The date of their last return was <b>{{dateOfLastReturn}}</b>.</h6>
+                    <h6 *ngIf="numPrevReturns > 0"><a href="javascript:void(0)" (click)="viewPreviousReturns()">View
+                            Previous Returns</a></h6>
+                    <h6 *ngIf="numPrevReturns == 0">There is no date of their last return.</h6>
+                </div>
+                <div class=" order-box-second-second-half" *ngIf="!_prevLoaded">
+                    <h6>
+                        Content loading{{_dots}}
+                    </h6>
+                </div>
+            </div>
+            <div class="order-box-lower-container">
+                <div class="order-box-lower-column1">
+                    <div class="order-box-lower-container" style="margin-bottom: 10px;">
+                        <hr>
+                        <div class="lower-box-row-image">
+                            <img [src]="item.product.image.src" style="height: 120px; width:120px">
+                        </div>
+                        <div class="lower-box-row-content">
+                            <div class="lower-box-row-content1">
+                                <a href="javascript:void(0)">{{item.product.title}}</a>
+                            </div>
+                            <div class="lower-box-row-content2">
+                                <p>Quantity: <b>{{item.quantity}}</b></p>
+                            </div>
+                            <div class="lower-box-row-content2">
+                                <p>Size: <b>{{item.size.name}}</b></p>
+                            </div>
+                            <div class="lower-box-row-content2">
+                                <p>Variant: <b>{{item.variant.name}}</b></p>
+                            </div>
+                            <div class="lower-box-row-content2">
+                                <p>SKU: <b>{{item.sku}}</b></p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="order-box-lower-column2">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

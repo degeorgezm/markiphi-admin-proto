@@ -1,0 +1,39 @@
+<div class="container-fluid" *ngIf="loaded">
+    <div class="m-t-15">
+        <button class="btn btn-primary m-r-10 back-button" type="button"
+            routerLink="/products/product-edit/{{product._id}}">Back</button>
+    </div>
+    <div class=" row products-admin ratio_asos">
+        <div class="col-xl-3 col-sm-6" *ngFor="let image of product.images">
+            <div class="card">
+                <div class="card-body product-box"
+                    [ngClass]="image._id == product.image._id ? 'primary' : 'non-primary'">
+                    <div class="img-wrapper">
+                        <div class="front">
+                            <img [src]="image.src" class="img-fluid blur-up lazyload bg-img" alt="">
+                        </div>
+                    </div>
+                    <div class="photo-options" *ngIf="image._id != product.image._id; else primary">
+                        <div class="photo-left">
+                            <button class="button" (click)="setPrimary(image)">
+                                <h6>Set Primary</h6>
+                            </button>
+                        </div>
+                        <div class="photo-right">
+                            <button class="button" (click)="delete(image)">
+                                <h6>Delete</h6>
+                            </button>
+                        </div>
+                    </div>
+                    <ng-template #primary>
+                        <div class="photo-options primary">
+                            <div class="vertical-center">
+                                <h6>Primary Photo</h6>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="container-fluid" *ngIf="loaded">
+    <div class="card">
+        <div class="row product-page-main card-body">
+            <div class="col-xl-12">
+                <app-order-box [order]="order" [backend]="true" [opened]="true"></app-order-box>
+            </div>
+        </div>
+    </div>
+</div>

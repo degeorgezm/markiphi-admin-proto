@@ -1,0 +1,238 @@
+<div class="container-fluid" *ngIf="loaded">
+    <div class="m-t-15">
+        <button class="btn btn-primary m-r-10 back-button" type="button"
+            routerLink="/promotions/promotions-list">Back</button>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-xl-12">
+                <h3>Add Promotion</h3>
+                <hr>
+                <form #f="ngForm">
+                    <div class="form-group" style="margin-top: 10px;">
+                        <label for="promotiontitle">Title</label>
+                        <div class="input-group">
+                            <input id="promotiontitle" class="form-control" placeholder="Promotion Title" name="title"
+                                type="text" required="" ngModel>
+                        </div>
+                    </div>
+                    <label>Type</label>
+                    <div class="form-check">
+                        <input checked class="form-check-input" type="radio" name="type" ngModel value="percentage"
+                            id="promotionradio1">
+                        <label class="form-check-label" for="promotionradio1">
+                            Percentage
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" ngModel value="amount"
+                            id="promotionradio2">
+                        <label class="form-check-label" for="promotionradio2">
+                            Amount
+                        </label>
+                    </div>
+                    <div class="form-group" style="margin-top: 10px;">
+                        <label for="promotionvalue">Value</label>
+                        <div class="input-group">
+                            <input id="promotionvalue" class="form-control" placeholder="Promotion Value" name="value"
+                                type="number" required="" ngModel>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="minimum">Minimum Spend Value</label>
+                        <div class="input-group">
+                            <input id="minimum" class="form-control" placeholder="Minimum Spend Value" name="minimum"
+                                type="number" required="" ngModel>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="maximum">Maximum Value (Enter 0 for Unlimited)</label>
+                        <div class="input-group">
+                            <input id="maximum" class="form-control" placeholder="Maximum Value" name="maximum"
+                                type="number" required="" ngModel>
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-top: 10px;">
+                        <label for="stackable" class="col-xl-3 col-sm-4 mb-0">Stackable:</label>
+                        <select class="form-control digits col-xl-8 col-sm-7" id="stackable" ngModel name="stackable">
+                            <option value="" selected disabled>Stackable</option>
+                            <option value="true">True</option>
+                            <option value="false">False</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label for="free_shipping" class="col-xl-3 col-sm-4 mb-0">Free Shipping:</label>
+                        <select class="form-control digits col-xl-8 col-sm-7" id="free_shipping" ngModel
+                            name="free_shipping">
+                            <option value="" selected disabled>Free Shipping</option>
+                            <option value="true">True</option>
+                            <option value="false">False</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field>
+                            <mat-label>Start Date</mat-label>
+                            <input matInput [matDatepicker]="picker1" autocomplete="off" placeholder="Start Date"
+                                ngModel name="start" required="">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1 color="primary"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field>
+                            <mat-label>End Date</mat-label>
+                            <input matInput [matDatepicker]="picker2" autocomplete="off" placeholder="End Date" ngModel
+                                name="end" required="">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group row" *ngFor="let value of brandArray; let i = index"
+                        style="margin-top: 10px;">
+                        <label *ngIf="i == 0; else emptybrandlabel" for="brand_{{i}}"
+                            class="col-xl-3 col-sm-4 mb-0">Select
+                            Brands
+                            :</label>
+                        <ng-template #emptybrandlabel>
+                            <label *ngIf="i != 0;" for="brand_{{i}}" class="col-xl-3 col-sm-4 mb-0">&nbsp;</label>
+                        </ng-template>
+                        <select class="form-control digits col-xl-8 col-sm-7" id="brand_{{i}}" ngModel
+                            name="brand_{{i}}">
+                            <option value="" selected>-</option>
+                            <option *ngFor="let brand of brands" value=" {{brand._id}}">
+                                {{brand.name}}</option>
+                        </select>
+                        <img *ngIf="i == (brandCounter - 1)" src="assets/images/icons/plus-gray.png"
+                            onmouseover="this.src='assets/images/icons/plus-blue.png';"
+                            onmouseout="this.src='assets/images/icons/plus-gray.png';" href="javascript:void(0)"
+                            class="plus-icon" (click)="incrementBrand()">
+                        <img *ngIf="(i == (brandCounter - 1)) && (i > 0)" src="assets/images/icons/minus-gray.png"
+                            onmouseover="this.src='assets/images/icons/minus-blue.png';"
+                            onmouseout="this.src='assets/images/icons/minus-gray.png';" href="javascript:void(0)"
+                            class="minus-icon" (click)="decrementBrand()">
+                    </div>
+                    <div class="form-group row" *ngFor="let value of departmentArray; let i = index">
+                        <label *ngIf="i == 0; else emptydepartmentlabel" for="department_{{i}}"
+                            class="col-xl-3 col-sm-4 mb-0">Select
+                            Departments
+                            :</label>
+                        <ng-template #emptydepartmentlabel>
+                            <label *ngIf="i != 0;" for="department_{{i}}" class="col-xl-3 col-sm-4 mb-0">&nbsp;</label>
+                        </ng-template>
+                        <select class="form-control digits col-xl-8 col-sm-7" id="department_{{i}}" ngModel
+                            name="department_{{i}}">
+                            <option value="" selected>-</option>
+                            <option *ngFor="let department of departments" value=" {{department._id}}">
+                                {{department.name}}</option>
+                        </select>
+                        <img *ngIf="i == (departmentCounter - 1)" src="assets/images/icons/plus-gray.png"
+                            onmouseover="this.src='assets/images/icons/plus-blue.png';"
+                            onmouseout="this.src='assets/images/icons/plus-gray.png';" href="javascript:void(0)"
+                            class="plus-icon" (click)="incrementDepartment()">
+                        <img *ngIf="(i == (departmentCounter - 1)) && (i > 0)" src="assets/images/icons/minus-gray.png"
+                            onmouseover="this.src='assets/images/icons/minus-blue.png';"
+                            onmouseout="this.src='assets/images/icons/minus-gray.png';" href="javascript:void(0)"
+                            class="minus-icon" (click)="decrementDepartment()">
+                    </div>
+                    <div class="form-group row" *ngFor="let value of typeArray; let i = index">
+                        <label *ngIf="i == 0; else emptytypelabel" for="type_{{i}}"
+                            class="col-xl-3 col-sm-4 mb-0">Select
+                            Types
+                            :</label>
+                        <ng-template #emptytypelabel>
+                            <label *ngIf="i != 0;" for="type_{{i}}" class="col-xl-3 col-sm-4 mb-0">&nbsp;</label>
+                        </ng-template>
+                        <select class="form-control digits col-xl-8 col-sm-7" id="type_{{i}}" ngModel name="type_{{i}}">
+                            <option value="" selected>-</option>
+                            <option *ngFor="let type of types" value="{{type._id}}">
+                                {{type.name}}</option>
+                        </select>
+                        <img *ngIf="i == (typeCounter - 1)" src="assets/images/icons/plus-gray.png"
+                            onmouseover="this.src='assets/images/icons/plus-blue.png';"
+                            onmouseout="this.src='assets/images/icons/plus-gray.png';" href="javascript:void(0)"
+                            class="plus-icon" (click)="incrementType()">
+                        <img *ngIf="(i == (typeCounter - 1)) && (i > 0)" src="assets/images/icons/minus-gray.png"
+                            onmouseover="this.src='assets/images/icons/minus-blue.png';"
+                            onmouseout="this.src='assets/images/icons/minus-gray.png';" href="javascript:void(0)"
+                            class="minus-icon" (click)="decrementType()">
+                    </div>
+                    <div class="form-group row" *ngFor="let value of variantArray; let i = index">
+                        <label *ngIf="i == 0; else emptyvariantlabel" for="variant{{i}}"
+                            class="col-xl-3 col-sm-4 mb-0">Select
+                            Variants
+                            :</label>
+                        <ng-template #emptyvariantlabel>
+                            <label *ngIf="i != 0;" for="variant{{i}}" class="col-xl-3 col-sm-4 mb-0">&nbsp;</label>
+                        </ng-template>
+                        <select class="form-control digits col-xl-8 col-sm-7" id="variant_{{i}}" ngModel
+                            name="variant_{{i}}">
+                            <option value="" selected>-</option>
+                            <option *ngFor="let variant of variants, let i = index" value="{{variant._id}}">
+                                {{variant.name}}
+                            </option>
+                        </select>
+                        <img *ngIf="i == (variantCounter - 1)" src="assets/images/icons/plus-gray.png"
+                            onmouseover="this.src='assets/images/icons/plus-blue.png';"
+                            onmouseout="this.src='assets/images/icons/plus-gray.png';" href="javascript:void(0)"
+                            class="plus-icon" (click)="incrementVariant()">
+                        <img *ngIf="(i == (variantCounter - 1)) && (i > 0)" src="assets/images/icons/minus-gray.png"
+                            onmouseover="this.src='assets/images/icons/minus-blue.png';"
+                            onmouseout="this.src='assets/images/icons/minus-gray.png';" href="javascript:void(0)"
+                            class="minus-icon" (click)="decrementVariant()">
+                    </div>
+                    <div class="form-group row" *ngFor="let value of groupArray; let i = index">
+                        <label *ngIf="i == 0; else emptygrouplabel" for="group_{{i}}"
+                            class="col-xl-3 col-sm-4 mb-0">Select
+                            Groups
+                            :</label>
+                        <ng-template #emptygrouplabel>
+                            <label *ngIf="i != 0;" for="group_{{i}}" class="col-xl-3 col-sm-4 mb-0">&nbsp;</label>
+                        </ng-template>
+                        <select class="form-control digits col-xl-8 col-sm-7" id="group_{{i}}" ngModel
+                            name="group_{{i}}">
+                            <option value="" selected>-</option>
+                            <option *ngFor="let group of groups" value="{{group._id}}">
+                                {{group.name}}</option>
+                        </select>
+                        <img *ngIf="i == (groupCounter - 1)" src="assets/images/icons/plus-gray.png"
+                            onmouseover="this.src='assets/images/icons/plus-blue.png';"
+                            onmouseout="this.src='assets/images/icons/plus-gray.png';" href="javascript:void(0)"
+                            class="plus-icon" (click)="incrementGroup()">
+                        <img *ngIf="(i == (groupCounter - 1)) && (i > 0)" src="assets/images/icons/minus-gray.png"
+                            onmouseover="this.src='assets/images/icons/minus-blue.png';"
+                            onmouseout="this.src='assets/images/icons/minus-gray.png';" href="javascript:void(0)"
+                            class="minus-icon" (click)="decrementGroup()">
+                    </div>
+                    <div class="form-group row">
+                        <label for="description" class="col-xl-3 col-sm-4 mb-0"
+                            style="padding-bottom: 20px;">Description
+                            :</label>
+                        <editor apiKey="d7wm10jds6xczz0fzcg0zsighb5iuw6b1wy7ft1oq61m37lx" class="center"
+                            initialValue="<p>Enter details about the promotion.</p>" [init]="{
+                              height: 500,
+                              menubar: false,
+                              plugins: [
+                                'advlist autolink lists link image charmap print',
+                                'preview anchor searchreplace visualblocks code',
+                                'fullscreen insertdatetime media table paste',
+                                'help wordcount'
+                              ],
+                              toolbar:
+                                'undo redo | formatselect | bold italic | \
+                                alignleft aligncenter alignright alignjustify | \
+                                bullist numlist outdent indent | help'
+                            }" ngModel name="description" style="margin-right: 100px;">
+                        </editor>
+                    </div>
+                </form>
+                <div class="form-group row mb-0">
+                    <div class="product-buttons col-sm-8 offset-xl-3 offset-sm-4">
+                        <button type="button" class="btn btn-primary mr-1" (click)="createPromotion(f.value)"
+                            [disabled]="!f.valid">Create</button>
+                        <button type="button" class="btn btn-light"
+                            routerLink="/promotions/promotions-list">Discard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

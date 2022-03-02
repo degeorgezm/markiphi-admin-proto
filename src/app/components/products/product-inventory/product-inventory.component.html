@@ -1,0 +1,78 @@
+<div class="container-fluid" *ngIf="loaded">
+    <div class="card">
+        <div class="row product-page-main card-body">
+            <div class="col-xl-4">
+                <!-- <section>
+                    <ks-carousel [id]="100" [images]="imagesRect" [dotsConfig]="{visible: false}"
+                        [carouselConfig]="{maxHeight: '600px', keyboardEnable: true}"
+                        [previewConfig]="{maxHeight: '125px'}">
+                    </ks-carousel>
+                </section> -->
+                <a href="javascript:void(0)" routerLink="/products/product-detail/{{product._id}}">
+                    <img [src]="product.image.src" style="height:340px; width:340px">
+                </a>
+                <div class="product-page-details product-right mb-0">
+                    <h5>{{product.title}}</h5>
+                    <!-- <ngb-rating [rate]="3" class="rating-size-product"></ngb-rating> -->
+                    <hr>
+                </div>
+            </div>
+            <div class="col-xl-8">
+
+                <div class="add-product-form" style="text-align: center;">
+                    <h6 class="product-title" style="padding-top: 10px">current inventory</h6>
+                    &nbsp;
+                    <inventory-table [product]="product"></inventory-table>
+                </div>
+                <hr>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="#addinventory" class="nav-link active" data-toggle="tab" (click)="postMode(1)">Add to
+                            Inventory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#setinventory" class="nav-link" data-toggle="tab" (click)="postMode(2)">Overwrite
+                            Inventory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#recordloses" class="nav-link" data-toggle="tab" (click)="postMode(3)">Record
+                            Losses</a>
+                    </li>
+                </ul>
+
+                <form class="theme-form" (ngSubmit)="onSubmit()" #f="ngForm">
+                    <div class="tab-content">
+                        <div class="add-product-form tab-pane fade show active" style="text-align: center;"
+                            id="addinventory">
+                            <h6 class="product-title" style="padding-top: 10px">Add to Inventory</h6>
+                            &nbsp;
+                            <change-inventory-table [product]="product">
+                            </change-inventory-table>
+                        </div>
+                        <div class="add-product-form tab-pane fade" style="text-align: center;" id="setinventory">
+                            <h6 class="product-title" style="padding-top: 10px">Set Inventory</h6>
+                            &nbsp;
+                            <overwrite-inventory-table [product]="product">
+                            </overwrite-inventory-table>
+                        </div>
+                        <div class="add-product-form tab-pane fade" style="text-align: center;" id="recordloses">
+                            <h6 class="product-title" style="padding-top: 10px">Post Losses</h6>
+                            &nbsp;
+                            <report-losses-table [product]="product">
+                            </report-losses-table>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group row mb-0">
+                        <div class="product-buttons col-sm-8 offset-xl-3 offset-sm-4">
+                            <button type="submit" class="btn btn-primary mr-1">Submit</button>
+                            <a routerLink="/products/product-edit/{{product._id}}"><button type="button"
+                                    class="btn btn-light">Discard</button></a>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>

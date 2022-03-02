@@ -1,0 +1,107 @@
+<div class="order-box">
+    <div class="order-box-header">
+        <div class="order-inner-header-box" style="width: 100%;">
+            <div class="order-placed-column">
+                <div class="order-placed-label">ORDER PLACED</div>
+                <div class="order-placed-date">{{orderTimeString}} {{orderDateString}}</div>
+            </div>
+            <div class="order-details-column">
+                <div class="order-details-number">ORDER # {{order.orderId}}</div>
+                <div class="order-details-links"><a href="javascript:void(0)">Shipping label</a> | <a
+                        href="javascript:void(0)">Order invoice</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="order-box-body">
+        <div class="order-box-inner-body">
+            <div class="order-box-upper-box">
+
+                <div class="order-box-upper-box-left">
+                    <h4>Order Status: <b>{{orderStatusString}}</b></h4>
+                    <p style="font-size: 16px;">{{orderString}}</p>
+
+                    <div class="order-box-upper-box-right">
+                        <div class="horizontal-float-button">
+                            <button class="btn btn-success primary-button" (click)="startProcessing()">Start
+                                Processing</button>
+                        </div>
+                        <div class="horizontal-float-button">
+                            <button class="btn btn-warning primary-button">Waitlist
+                                Order</button>
+                        </div>
+                        <div class="horizontal-float-button">
+                            <button class="btn btn-primary primary-button">Drop
+                                Order</button>
+                        </div>
+                    </div>
+                    <br><br>
+                    <hr>
+                </div>
+
+            </div>
+            <div class="order-box-second-box">
+                <div class="order-box-second-first-half">
+                    <div>
+                        <p>This order is being shipped to:</p>
+                    </div>
+                    <div class="order-box-second-box-address">
+                        <h6>{{order.shipping_address.name}}</h6>
+                        <h6>
+                            {{order.shipping_address.address1}} {{order.shipping_address.address2}}
+                        </h6>
+                        <h6>
+                            {{order.shipping_address.city}}, {{order.shipping_address.state}}
+                            {{order.shipping_address.zip}}
+                        </h6>
+                        <h6>
+                            Phone: {{order.shipping_address.phone}}
+                        </h6>
+                    </div>
+                </div>
+                <div class=" order-box-second-second-half">
+                    <h6>This order was placed by <b>{{order.user.username}}.</b></h6>
+                    <h6>This order has a total of <b>{{order.totalProducts}}</b> seperate products.</h6>
+                    <h6>This order has a total of <b>{{order.totalItems}}</b> items.</h6>
+                    <h6>It has been <b>{{order.hoursSinceOrder}}</b> hours since this
+                        order was placed.</h6>
+                </div>
+            </div>
+            <input type="checkbox" id="id_{{order._id}}" (change)="onChange(order._id)" />
+            <div class=" order-box-lower-container class_{{order._id}}">
+                <div class="order-box-lower-column1">
+                    <div *ngFor="let item of order.items, let i=index" class="order-box-lower-container"
+                        style="margin-bottom: 10px;">
+                        <hr>
+                        <div class="lower-box-row-image">
+                            <img [src]="item.product.image.src" style="height: 120px; width:120px">
+                        </div>
+                        <div class="lower-box-row-content">
+                            <div class="lower-box-row-content1">
+                                <a href="javascript:void(0)">{{item.product.title}}</a>
+                            </div>
+                            <div class="lower-box-row-content2">
+                                <p>Quantity: <b>{{item.quantity}}</b></p>
+                            </div>
+                            <div class="lower-box-row-content2">
+                                <p>Size: <b>{{item.size.name}}</b></p>
+                            </div>
+                            <div class="lower-box-row-content2">
+                                <p>Variant: <b>{{item.variant.name}}</b></p>
+                            </div>
+                            <div class="lower-box-row-content2">
+                                <p>SKU: <b>{{item.sku}}</b></p>
+                            </div>
+                            <div class="lower-box-row-content2" *ngIf="item.status.status != 'Purchased'">
+                                <p>Status: <b>{{item.status.status}}</b></p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="order-box-lower-column2">
+                </div>
+            </div>
+            <label id="label_id_{{order._id}}" for="id_{{order._id}}" style="margin-left: 45%;">Show More</label>
+        </div>
+    </div>
+</div>

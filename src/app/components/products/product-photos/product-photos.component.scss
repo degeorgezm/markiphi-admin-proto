@@ -1,0 +1,50 @@
+.photo-options{
+    padding: 20px;
+    height: 100px;
+    position: relative;
+}
+
+.photo-left {
+    width: 50%;
+    float: left;
+    text-align: left;
+    padding-top: 15px;
+    padding-left: 0px;
+}
+
+.photo-right {
+    width: 50%;
+    float: left;
+    text-align: right;
+    padding-top: 15px;
+    padding-right:0px;
+}
+
+h6 {
+    font-size: small;
+}
+
+.primary {
+    text-align: center;
+    background-color: lightgray;
+}
+
+.card-body {
+    padding-bottom: 0px;
+}
+
+.non-primary {
+    background-color: white;
+}
+
+.button {
+    background-color: white;
+    border: none;
+}
+
+.vertical-center {
+    width: 100%;
+    text-align: center;
+    left: 0px;
+}
+

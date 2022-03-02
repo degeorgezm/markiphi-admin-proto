@@ -1,0 +1,100 @@
+<div class="container-fluid" *ngIf="loaded">
+    <div class="m-t-15">
+        <button class="btn btn-primary m-r-10 back-button" type="button"
+            routerLink="/products/product-sales-view/{{productId}}/sale/{{salesId}}">Back</button>
+    </div>
+    <div class="card">
+        <div class="row product-page-main card-body">
+            <div class="col-xl-12">
+                <h3>Edit Sale</h3>
+                <hr>
+                <form #f="ngForm">
+                    <div class="form-group" style="margin-top: 10px;">
+                        <label for="promotiontitle">Title</label>
+                        <div class="input-group">
+                            <input id="promotiontitle" class="form-control" placeholder="Promotion Title" name="title"
+                                type="text" required="" [(ngModel)]="sale.title">
+                        </div>
+                    </div>
+                    <label>Type</label>
+                    <div class="form-check">
+                        <input checked class="form-check-input" type="radio" name="type" [(ngModel)]="sale.type"
+                            value="percentage" id="promotionradio1">
+                        <label class="form-check-label" for="promotionradio1">
+                            Percentage
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type" [(ngModel)]="sale.type" value="amount"
+                            id="promotionradio2">
+                        <label class="form-check-label" for="promotionradio2">
+                            Amount
+                        </label>
+                    </div>
+                    <div class="form-group" style="margin-top: 10px;">
+                        <label for="promotionvalue">Value</label>
+                        <div class="input-group">
+                            <input id="promotionvalue" class="form-control" placeholder="Promotion Value" name="value"
+                                type="number" required="" [(ngModel)]="sale.value">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-top: 10px;">
+                        <label for="stackable" class="col-xl-3 col-sm-4 mb-0">Stackable:</label>
+                        <select class="form-control digits col-xl-8 col-sm-7" id="stackable"
+                            [(ngModel)]="sale.stackable" name="stackable">
+                            <option value="" selected disabled>Stackable</option>
+                            <option value="{{true}}">True</option>
+                            <option value="{{false}}">False</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field>
+                            <mat-label>Start Date</mat-label>
+                            <input matInput [matDatepicker]="picker1" autocomplete="off" placeholder="Start Date"
+                                ngModel name="start" required="" [(ngModel)]="sale.start">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1 color="primary"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field>
+                            <mat-label>End Date</mat-label>
+                            <input matInput [matDatepicker]="picker2" autocomplete="off" placeholder="End Date"
+                                [(ngModel)]="sale.end" name="end" required="">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group row">
+                        <label for="description" class="col-xl-3 col-sm-4 mb-0"
+                            style="padding-bottom: 20px;">Description
+                            :</label>
+                        <editor apiKey="d7wm10jds6xczz0fzcg0zsighb5iuw6b1wy7ft1oq61m37lx" class="center"
+                            initialValue="<p>Enter details about the promotion.</p>" [init]="{
+                              height: 500,
+                              menubar: false,
+                              plugins: [
+                                'advlist autolink lists link image charmap print',
+                                'preview anchor searchreplace visualblocks code',
+                                'fullscreen insertdatetime media table paste',
+                                'help wordcount'
+                              ],
+                              toolbar:
+                                'undo redo | formatselect | bold italic | \
+                                alignleft aligncenter alignright alignjustify | \
+                                bullist numlist outdent indent | help'
+                            }" [(ngModel)]="sale.description" name="description" style="margin-right: 100px;">
+                        </editor>
+                    </div>
+                </form>
+                <div class="form-group row mb-0">
+                    <div class="product-buttons col-sm-8 offset-xl-3 offset-sm-4">
+                        <button type="button" class="btn btn-primary mr-1" (click)="editSale(f.value)"
+                            [disabled]="!f.valid">Update</button>
+                        <button type="button" class="btn btn-light"
+                            routerLink="/products/product-sales-view/{{productId}}/sale/{{salesId}}">Discard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

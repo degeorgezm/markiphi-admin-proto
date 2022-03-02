@@ -1,0 +1,36 @@
+<div class="container-fluid" *ngIf="loaded">
+    <div class="card">
+        <div class="card-body">
+            <form (ngSubmit)="onSubmit(f.value)" #f="ngForm">
+                <div class="col-xl-12">
+                    <div class="form-group row">
+                        <label for="name" class="">Name
+                            :</label>
+                        <input class="form-control" id="name" type="text" required="" [(ngModel)]="type.name"
+                            name="name">
+                    </div>
+                    <div class="form-group row">
+                        <label for="sku_shortcode" class="">SKU Shortcode
+                            :</label>
+                        <input class="form-control" id="sku_shortcode" type="text" required=""
+                            [(ngModel)]="type.sku_shortcode" name="sku_shortcode">
+                    </div>
+                    <div class="form-group row">
+                        <label for="display">Display</label>
+                        <select class="form-control" name="display" required="" [(ngModel)]="type.display"
+                            title="Display">
+                            <option value="" disabled select>Display</option>
+                            <option value="{{true}}"> True</option>
+                            <option value="{{false}}"> False</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="m-t-15">
+                    <button class="btn btn-primary m-r-10 save-button" type="submit"> Save </button>
+                    <button class="btn btn-outline-dark m-r-10 save-button" type="button"
+                        (click)="cancel()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

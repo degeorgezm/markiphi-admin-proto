@@ -1,0 +1,14 @@
+<div class="container-fluid" *ngIf="loaded">
+    <div class="card">
+        <div class="card-body">
+            <div class="col-sm-12 exmpty-cart-cls text-center" *ngIf="orders.length == 0">
+                <img src="assets/images/icon-empty-bag.png" class="img-fluid mb-4">
+                <h3><strong>There are no pending orders...</strong></h3>
+                <h4>Check back soon to see if any new orders have come in!</h4>
+            </div>
+            <div class="col-xl-12" *ngFor="let order of orders" style="margin-top:15px;">
+                <app-processing-box [order]="order"></app-processing-box>
+            </div>
+        </div>
+    </div>
+</div>

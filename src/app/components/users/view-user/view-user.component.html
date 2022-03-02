@@ -1,0 +1,186 @@
+<div class="container-fluid" *ngIf="loaded">
+    <div class="card">
+        <div class="row product-page-main card-body">
+            <div class="col-xl-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="#summary" [ngClass]="{ 'active':activeTab==='summary'}" class="nav-link active"
+                            data-toggle="tab">Summary</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#orders" [ngClass]="{ 'active':activeTab==='orders'}" class="nav-link"
+                            data-toggle="tab">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#returns" [ngClass]="{ 'active':activeTab==='returns'}" class="nav-link"
+                            data-toggle="tab">Returns</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#notes" [ngClass]="{ 'active':activeTab==='notes'}" class="nav-link"
+                            data-toggle="tab">Notes</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tab-content">
+                <div class="add-product-form tab-pane fade show active" style="text-align: center;" id="summary">
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-xl-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="profile-details text-center">
+                                        <img src="assets/images/dashboard/man.png" alt=""
+                                            class="img-fluid img-90 rounded-circle blur-up lazyloaded">
+                                        <h5 class="f-w-600 mb-0">{{user.firstName}} {{user.lastName}}</h5>
+                                        <span>{{user.email}}</span>
+                                    </div>
+                                    <hr>
+                                    <div class="project-status">
+                                        <h5 class="f-w-600">Customer Status</h5>
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <h6>Purchase/Return Quality<span class="pull-right">100%</span></h6>
+                                                <div class="progress sm-progress-bar">
+                                                    <div class="progress-bar bg-primary" role="progressbar"
+                                                        style="width: 100%" aria-valuenow="25" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <h6>Value/Product Quality <span class="pull-right">75%</span></h6>
+                                                <div class="progress sm-progress-bar">
+                                                    <div class="progress-bar bg-secondary" role="progressbar"
+                                                        style="width: 75%" aria-valuenow="25" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <h6>Purchase/Frequency Quality<span class="pull-right">30%</span></h6>
+                                                <div class="progress sm-progress-bar">
+                                                    <div class="progress-bar bg-danger" role="progressbar"
+                                                        style="width: 30%" aria-valuenow="25" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <h6>Overall Quality<span class="pull-right">88%</span></h6>
+                                                <div class="progress sm-progress-bar">
+                                                    <div class="progress-bar bg-success" role="progressbar"
+                                                        style="width: 88%" aria-valuenow="25" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-8">
+                            <div class="card tab2-card">
+                                <div class="card-body">
+                                    <ngb-tabset class="tab-coupon profile-tabs">
+                                        <ngb-tab>
+                                            <ng-template ngbTabTitle>
+                                                <app-feather-icons [icon]="'user'"></app-feather-icons>Profile
+                                            </ng-template>
+                                            <ng-template ngbTabContent>
+                                                <div class="tab-pane fade show active" id="top-profile" role="tabpanel"
+                                                    aria-labelledby="top-profile-tab">
+                                                    <h5 class="f-w-600"> Profile</h5>
+                                                    <div class="table-responsive profile-table">
+                                                        <table class="table table-responsive">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>First Name:</td>
+                                                                    <td>{{user.firstName}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Last Name:</td>
+                                                                    <td>{{user.lastName}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Email:</td>
+                                                                    <td>{{user.email}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Mobile Number:</td>
+                                                                    <td>{{user.phone}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </ngb-tab>
+                                        <ngb-tab>
+                                            <ng-template ngbTabTitle>
+                                                <i data-feather="credit-card"></i> Payments
+                                            </ng-template>
+                                            <ng-template ngbTabContent>
+                                                <div class="payments">
+                                                    <h5 class="payments">Payments</h5>
+                                                </div>
+                                            </ng-template>
+                                        </ngb-tab>
+                                        <ngb-tab>
+                                            <ng-template ngbTabTitle>
+                                                <i data-feather="home"></i> Addresses
+                                            </ng-template>
+                                            <ng-template ngbTabContent>
+                                                <div class="addresses">
+                                                    <h5 class="addresses">Addresses</h5>
+                                                </div>
+                                            </ng-template>
+                                        </ngb-tab>
+                                        <ngb-tab>
+                                            <ng-template ngbTabTitle>
+                                                <i data-feather="phone-incoming"></i> Incoming Messages
+                                            </ng-template>
+                                            <ng-template ngbTabContent>
+                                                <div class="incoming-messages">
+                                                    <h5 class="incoming-messages">Incoming Messages</h5>
+                                                </div>
+                                            </ng-template>
+                                        </ngb-tab>
+                                    </ngb-tabset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="add-product-form tab-pane fade show" style="text-align: center;" id="orders">
+                    <div class="col-xl-12 left">
+                        <h5 style="padding-top: 10px;">{{user.firstName}} {{user.lastName}} has {{orders.length}}
+                            orders.</h5>
+                        <div *ngFor="let order of orders" style="margin-top:15px;">
+                            <app-order-box [order]="order" [backend]="true" [opened]="false"></app-order-box>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="add-product-form tab-pane fade show" style="text-align: center;" id="returns">
+                    <div class="col-sm-12 exmpty-cart-cls text-center top-padding" *ngIf="_returnOrders.length == 0">
+                        <img src="assets/images/icon-empty-cart.png" class="img-fluid mb-4">
+                        <h3><strong>There are no return requests.</strong></h3>
+                    </div>
+                    <!-- <div class="col-xl-12" *ngFor="let order of _orders, let i=index">
+                        <app-return-box [order]="_returnOrders[i]" [item]="_returnItems[i]">
+                        </app-return-box>
+                    </div> -->
+                </div>
+
+                <div class="add-product-form tab-pane fade show" style="text-align: center;" id="notes">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

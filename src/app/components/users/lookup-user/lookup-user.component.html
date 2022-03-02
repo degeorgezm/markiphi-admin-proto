@@ -1,0 +1,98 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <form (ngSubmit)="onSubmit(f.value)" #f="ngForm">
+                        <div class="row" style="margin-top: -8px;">
+                            <h5>User Search Criteria</h5>
+                        </div>
+                        <div class="row">
+                            <input type="text" placeholder="Email" ngModel name="email" id="email"
+                                (focus)="focusemail()" (focusout)="focusoutemail()">
+                        </div>
+                        <div class="checkbox">
+                            <input type="checkbox" class="standard-form" id="email-input" ngModel name="email-input">
+                            <label id="email-label" for="email-input">
+                                Query Email
+                            </label>
+                        </div>
+                        <div class="row">
+                            <input type="text" placeholder="First Name" ngModel name="firstName" id="firstName"
+                                (focus)="focusfirstName()" (focusout)="focusoutfirstName()">
+                        </div>
+                        <div class="checkbox">
+                            <input type="checkbox" class="standard-form" id="firstName-input" ngModel
+                                name="firstName-input">
+                            <label id="firstName-label" for="firstName-input">
+                                Query First Name
+                            </label>
+                        </div>
+                        <div class="row">
+                            <input type="text" placeholder="Last Name" ngModel name="lastName" id="lastName"
+                                (focus)="focuslastName()" (focusout)="focusoutlastName()">
+                        </div>
+                        <div class="checkbox">
+                            <input type="checkbox" class="standard-form" id="lastName-input" ngModel
+                                name="lastName-input">
+                            <label id="lastName-label" for="lastName-input">
+                                Query Last Name
+                            </label>
+                        </div>
+                        <div class="row">
+                            <input type="text" placeholder="Phone Number" ngModel maxlength="14" id="phone" name="phone"
+                                #phonenumber (keyup)="phoneOnChange()" (focus)="focusphone()"
+                                (focusout)="focusoutphone()">
+                        </div>
+                        <div class="checkbox">
+                            <input type="checkbox" class="standard-form" id="phone-input" ngModel name="phone-input">
+                            <label id="phone-label" for="phone-input">
+                                Query Phone Number
+                            </label>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card" *ngIf="users.length>0">
+                <div class="card-body">
+                    <div class="category-table custom-datatable">
+                        <div class="table-responsive">
+                            <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Links</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let user of users">
+                                        <td><a href=" javascript:void(0)"><img src="assets/images/user.png"></a>
+                                        </td>
+                                        <td width="25%;">{{ user.firstName }} {{ user.lastName }}</td>
+                                        <td width="25%;">{{ user.email }} </td>
+                                        <td width="25%;">{{ user.phone }}</td>
+                                        <td style="min-width: 50px;">
+                                            <img src="assets/images/icons/view-gray.png"
+                                                onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                                onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                                href="javascript:void(0)" class="link-icon"
+                                                (click)="viewUser(user._id)">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

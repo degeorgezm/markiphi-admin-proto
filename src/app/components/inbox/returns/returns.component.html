@@ -1,0 +1,15 @@
+<div class="container-fluid" *ngIf="loaded">
+    <div class="card">
+        <div class="card-body">
+            <div class="col-sm-12 exmpty-cart-cls text-center" *ngIf="_orders.length == 0">
+                <img src="assets/images/icon-empty-cart.png" class="img-fluid mb-4">
+                <h3><strong>There are no return requests!</strong></h3>
+                <h4>Keep this queue empty to keep me happy :)</h4>
+            </div>
+            <div class="col-xl-12" style="margin-top: 20px;" *ngFor="let order of _orders, let i=index">
+                <app-return-box [order]="_orders[i]" [item]="_items[i]">
+                </app-return-box>
+            </div>
+        </div>
+    </div>
+</div>

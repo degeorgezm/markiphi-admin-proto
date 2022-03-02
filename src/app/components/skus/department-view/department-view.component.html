@@ -1,0 +1,94 @@
+<div class="container-fluid" *ngIf="loaded">
+    <div class="card">
+        <div class="m-t-15">
+            <button class="btn btn-outline-dark m-r-10 edit-button" type="button" (click)="exit()">Exit</button>
+            <button class="btn btn-outline-primary m-r-10 edit-button" type="button" (click)="edit()">Edit
+                Department</button>
+        </div>
+        <div class="row product-page-main card-body">
+            <div class="col-xl-12">
+                <h6>Department Name</h6>
+                <p class="mb-0">{{department.name}}</p>
+                &nbsp;
+                <h6>Department ID</h6>
+                <p class="mb-0">{{department._id}}</p>
+                &nbsp;
+                <h6>Department Brand</h6>
+                <p class="mb-0">{{department.brand != undefined ? department.brand.name : "None"}}</p>
+                &nbsp;
+                <h6>Department SKU Shortcode</h6>
+                <p class="mb-0">{{department.sku_shortcode}}</p>
+                &nbsp;
+                <h6>Display</h6>
+                <p class="mb-0">{{department.display}}</p>
+                &nbsp;
+                <h6>Total Item Count</h6>
+                <p class="mb-0">{{products.length}}</p>
+            </div>
+        </div>
+        <div class="m-t-15">
+            <button class="btn btn-primary m-r-10 edit-button exit-button" type="button"
+                (click)="open(content)">Delete</button>
+        </div>
+        <ng-template #content let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Type</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h6 style="margin-top: 7px;">Are you sure you wish to permanently delete?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark"
+                    (click)="modal.close('Cancel Delete')">Cancel</button>
+                <button type="button" class="btn btn-primary"
+                    (click)="modal.close('Confirm Delete');delete()">Delete</button>
+            </div>
+        </ng-template>
+    </div>
+    <h3 *ngIf="products.length > 0">Products</h3>
+    <div class="row products-admin ratio_asos" style="margin-top: 30px;">
+        <div class="col-xl-3 col-sm-6" *ngFor="let product of products">
+            <div class="card" style="height: 330px;">
+                <div class="card-body product-box">
+                    <div class="img-wrapper">
+                        <div class="lable-block"><span class="lable3" *ngIf="product.tag == 'new'">new</span> <span
+                                class="lable4" *ngIf="product.sale == 'on sale'">on sale</span></div>
+                        <div class="front"
+                            style="max-height: 200px; max-width: 200px; margin-left: auto; margin-right: auto;">
+                            <a href="javascript:void(0)"><img [src]="product.image.src"
+                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                            <div class="product-hover">
+                                <ul>
+                                    <li>
+                                        <button class="btn" type="button" data-original-title="" title=""><i
+                                                class="icon-pencil-alt"
+                                                routerLink="/products/product-detail/{{product._id}}"></i></button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-detail">
+                        <div class="product-title" style="height: 55px; margin-top: 10px; text-align: center;">
+                            <a href="javascript:void(0)">
+                                <h6>{{product.title}}</h6>
+                            </a>
+                        </div>
+                        <div class="product-price" style="text-align: center;">
+                            <h4 *ngIf="product.sale; else regularprice">${{(product.price -
+                                product.discount).toFixed(2)}}
+                                <del>${{product.price}}</del>
+                            </h4>
+                            <ng-template #regularprice>
+                                <h4>${{product.price}}</h4>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="container-fluid" *ngIf="loaded">
+    <div class="card">
+        <div class="row product-page-main card-body">
+            <div class="col-xl-5">
+                <h4>Checklist</h4>
+                <div class="padding">
+                    <div class="container">
+                        <div class="left">
+                            <h4>1.</h4>
+                        </div>
+                        <div class="right">
+                            <input type="checkbox" id="review" (change)="reviewChange()">
+                            <label id="review-label" for="review">
+                                Review Order Processing Procedures
+                            </label>
+                        </div>
+                        &nbsp;
+                        <p>The <b>Order Processing Procedures</b> can be found <b><a
+                                    href="javascript:void(0)">here</a></b> for
+                            your reference. Please make sure you have reviewed them before you continue with
+                            processing of the order, as is is important that every order is processed accuractely and in
+                            a similar fashion for a good customer experience. </p>
+                    </div>
+                </div>
+                <div class="padding">
+                    <div class="container">
+                        <div class="left">
+                            <h4>2.</h4>
+                        </div>
+                        <div class="right">
+                            <input type="checkbox" id="invoice" disabled>
+                            <label id="invoice-label" for="invoice">Print Out Order Invoice</label>
+                        </div>
+
+                        &nbsp;
+                        <p>The <b>Order Invoice</b> is the blue-print for the order. It contains not only all of the
+                            items
+                            and quantities that are on the order, but also the mailing address needed to generate the
+                            shipping label. Make sure you have a copy of it printed out so that you can use it to
+                            process
+                            the order accurately. </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

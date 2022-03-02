@@ -1,0 +1,44 @@
+<div class="container-fluid" *ngIf="loaded">
+    <div class="card">
+        <div class="m-t-15">
+            <button class="btn btn-outline-dark m-r-10 edit-button edit-button" type="button"
+                (click)="exit()">Exit</button>
+            <button class="btn btn-outline-primary m-r-10 edit-button" type="button" (click)="edit()">Edit
+                Size</button>
+        </div>
+        <div class="row product-page-main card-body">
+            <div class="col-xl-12">
+                <h6>Size Name</h6>
+                <p class="mb-0">{{size.name}}</p>
+                &nbsp;
+                <h6>Size ID</h6>
+                <p class="mb-0">{{size._id}}</p>
+                &nbsp;
+                <h6>Size SKU Shortcode</h6>
+                <p class="mb-0">{{size.sku_shortcode}}</p>
+                &nbsp;
+            </div>
+        </div>
+        <div class="m-t-15">
+            <button class="btn btn-primary m-r-10 edit-button exit-button" type="button"
+                (click)="open(content)">Delete</button>
+        </div>
+        <ng-template #content let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Type</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h6 style="margin-top: 7px;">Are you sure you wish to permanently delete?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark"
+                    (click)="modal.close('Cancel Delete')">Cancel</button>
+                <button type="button" class="btn btn-primary"
+                    (click)="modal.close('Confirm Delete');delete()">Delete</button>
+            </div>
+        </ng-template>
+    </div>
+</div>

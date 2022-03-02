@@ -1,0 +1,300 @@
+<div class="container-fluid" *ngIf="loaded">
+    <div class="card">
+        <div class="row product-page-main card-body">
+            <div class="col-xl-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="#all" [ngClass]="{ 'active':activeTab==='all'}" class="nav-link active"
+                            data-toggle="tab">All</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#purchased" [ngClass]="{ 'active':activeTab==='purchased'}" class="nav-link"
+                            data-toggle="tab">Purchased</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#processing" [ngClass]="{ 'active':activeTab==='processing'}" class="nav-link"
+                            data-toggle="tab">Processing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#waitlisted" [ngClass]="{ 'active':activeTab==='waitlisted'}" class="nav-link"
+                            data-toggle="tab">Waitlisted</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#dropped" [ngClass]="{ 'active':activeTab==='dropped'}" class="nav-link"
+                            data-toggle="tab">Dropped</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#cancelled" [ngClass]="{ 'active':activeTab==='cancelled'}" class="nav-link"
+                            data-toggle="tab">Cancelled</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#shipped" [ngClass]="{ 'active':activeTab==='shipped'}" class="nav-link"
+                            data-toggle="tab">Shipped</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#delivered" [ngClass]="{ 'active':activeTab==='delivered'}" class="nav-link"
+                            data-toggle="tab">Delivered</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="add-product-form tab-pane fade show active" style="text-align: center;" id="all">
+                    <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th width="330px;">Date</th>
+                                <th>User</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let order of orders, let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{order.orderId}}</td>
+                                <td>{{order.timeString}} {{order.dateString}}</td>
+                                <td>{{order.user.username}}</td>
+                                <td>{{"$"+order.total.toFixed(2)}}</td>
+                                <td>{{order.getStatus().status}}</td>
+                                <td style="min-width: 100px;">
+                                    <img src="assets/images/icons/view-gray.png"
+                                        onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        [routerLink]="'/order/view/'+order._id">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="add-product-form tab-pane fade show" style="text-align: center;" id="purchased">
+                    <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th width="235px;">Date</th>
+                                <th>User</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let order of orders_purchased, let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{order.orderId}}</td>
+                                <td>{{order.timeString}} {{order.dateString}}</td>
+                                <td>{{order.user.username}}</td>
+                                <td>{{"$"+order.total.toFixed(2)}}</td>
+                                <td>{{order.getStatus().status}}</td>
+                                <td style="min-width: 100px;">
+                                    <img src="assets/images/icons/view-gray.png"
+                                        onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        [routerLink]="'/order/view/'+order._id">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="add-product-form tab-pane fade show" style="text-align: center;" id="processing">
+                    <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>User</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let order of orders_processing, let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{order.orderId}}</td>
+                                <td>{{order.timeString}} {{order.dateString}}</td>
+                                <td>{{order.user.username}}</td>
+                                <td>{{"$"+order.total.toFixed(2)}}</td>
+                                <td>{{order.getStatus().status}}</td>
+                                <td style="min-width: 100px;">
+                                    <img src="assets/images/icons/view-gray.png"
+                                        onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        [routerLink]="'/order/view/'+order._id">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="add-product-form tab-pane fade show" style="text-align: center;" id="waitlisted">
+                    <table class=" row-border hover" datatable [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>User</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let order of orders_waitlisted, let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{order.orderId}}</td>
+                                <td>{{order.timeString}} {{order.dateString}}</td>
+                                <td>{{order.user.username}}</td>
+                                <td>{{"$"+order.total.toFixed(2)}}</td>
+                                <td>{{order.getStatus().status}}</td>
+                                <td style="min-width: 100px;">
+                                    <img src="assets/images/icons/view-gray.png"
+                                        onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        [routerLink]="'/order/view/'+order._id">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="add-product-form tab-pane fade show" style="text-align: center;" id="dropped">
+                    <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>User</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let order of orders_dropped, let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{order.orderId}}</td>
+                                <td>{{order.timeString}} {{order.dateString}}</td>
+                                <td>{{order.user.username}}</td>
+                                <td>{{"$"+order.total.toFixed(2)}}</td>
+                                <td>{{order.getStatus().status}}</td>
+                                <td style="min-width: 100px;">
+                                    <img src="assets/images/icons/view-gray.png"
+                                        onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        [routerLink]="'/order/view/'+order._id">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="add-product-form tab-pane fade show" style="text-align: center;" id="cancelled">
+                    <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>User</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let order of orders_cancelled, let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{order.orderId}}</td>
+                                <td>{{order.timeString}} {{order.dateString}}</td>
+                                <td>{{order.user.username}}</td>
+                                <td>{{"$"+order.total.toFixed(2)}}</td>
+                                <td>{{order.getStatus().status}}</td>
+                                <td style="min-width: 100px;">
+                                    <img src="assets/images/icons/view-gray.png"
+                                        onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        [routerLink]="'/order/view/'+order._id">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="add-product-form tab-pane fade show" style="text-align: center;" id="shipped">
+                    <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>User</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let order of orders_shipped, let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{order.orderId}}</td>
+                                <td>{{order.timeString}} {{order.dateString}}</td>
+                                <td>{{order.user.username}}</td>
+                                <td>{{"$"+order.total.toFixed(2)}}</td>
+                                <td>{{order.getStatus().status}}</td>
+                                <td style="min-width: 100px;">
+                                    <img src="assets/images/icons/view-gray.png"
+                                        onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        [routerLink]="'/order/view/'+order._id">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="add-product-form tab-pane fade show" style="text-align: center;" id="delivered">
+                    <table class="row-border hover" datatable [dtOptions]="dtOptions">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>User</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Links</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let order of orders_delivered, let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{order.orderId}}</td>
+                                <td>{{order.timeString}} {{order.dateString}}</td>
+                                <td>{{order.user.username}}</td>
+                                <td>{{"$"+order.total.toFixed(2)}}</td>
+                                <td>{{order.getStatus().status}}</td>
+                                <td style="min-width: 100px;">
+                                    <img src="assets/images/icons/view-gray.png"
+                                        onmouseover="this.src='assets/images/icons/view-blue.png';"
+                                        onmouseout="this.src='assets/images/icons/view-gray.png';"
+                                        href="javascript:void(0)" class="link-icon"
+                                        [routerLink]="'/order/view/'+order._id">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

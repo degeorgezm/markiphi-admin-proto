@@ -1,0 +1,109 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid" *ngIf="loaded">
+    <div class="row">
+        <!-- <div class="col-xl-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 style="text-decoration: underline;">Site Statistics</h3>
+                    <table>
+                        <tr>
+                            <th style="width: 77%">Description</th>
+                            <th style="width: 23%">Value</th>
+                        </tr>
+                        <tr>
+                            <td>Total Sales</td>
+                            <td><b>{{" $"+total_sales}}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Number of Users</td>
+                            <td><b>{{user_count}}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Number of Orders</td>
+                            <td><b>{{order_count}}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Number of Items Sold</td>
+                            <td><b>{{item_count}}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Number of Products in Inventory</td>
+                            <td><b>{{product_count}}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Number of Admins</td>
+                            <td><b>{{admin_count}}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Returns Requested</td>
+                            <td><b>{{returns_requested}}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Cost of Returns</td>
+                            <td><b>{{"$"+return_sales}}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Returns Denied</td>
+                            <td><b>{{returns_denied}}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Net Sales</td>
+                            <td><b>{{"$"+net_sales}}</b></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div> -->
+        <div class="col-xl-12">
+            <div class="card">
+                <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+                    <div class="card-body">
+                        <h3 style="text-decoration: underline;">Site Settings</h3>
+                        <div class="col-xl-12 form-row">
+                            <label for="incoming_order_email">Incoming Order Alert Email</label>
+                            <input id="incoming_order_email" type="text" [(ngModel)]="incoming_order_alert_email"
+                                name="incoming_order_email" placeholder="Enter email here..." />
+                            <p class="form-info">Enter the email that you would like the automated alerts to be sent to
+                                when a new order
+                                is generated in the system to be processed. You may leave the value blank to disable the
+                                alert
+                                functionality. Please make sure the value is a valid and active email address.</p>
+                        </div>
+                        <div class="col-xl-12 form-row">
+                            <label for="incoming_return_email">Incoming Return Alert Email</label>
+                            <input id="incoming_return_email" type="text" [(ngModel)]="incoming_return_alert_email"
+                                name="incoming_return_email" placeholder="Enter email here..." />
+                            <p class="form-info">Enter the email that you would like the automated alerts to be sent to
+                                when a new return request
+                                is generated in the system to be approved. You may leave the value blank to disable the
+                                alert
+                                functionality. Please make sure the value is a valid and active email address.</p>
+                        </div>
+                        <div class="col-xl-12 form-row">
+                            <label for="incoming_review_email">Incoming Review Alert Email</label>
+                            <input id="incoming_review_email" type="text" [(ngModel)]="incoming_review_alert_email"
+                                name="incoming_review_email" placeholder="Enter email here..." />
+                            <p class="form-info">Enter the email that you would like the automated alerts to be sent to
+                                when a new review
+                                is generated in the system to be approved. You may leave the value blank to disable the
+                                alert
+                                functionality. Please make sure the value is a valid and active email address.</p>
+                        </div>
+                        <div class="col-xl-12 form-row">
+                            <label for="default_shipping_cost">Default Shipping Cost</label>
+                            <input id="default_shipping_cost" type="text" [(ngModel)]="default_shipping_cost"
+                                name="default_shipping_cost" placeholder="Enter email here..." />
+                            <p class="form-info">The default cost of shipping for all orders in the system. Please make
+                                sure the value is a number, and that it is floating point number to 2 fixed precision.
+                            </p>
+                        </div>
+                        <div class="col-xl-12 form-row">
+                            <button class="btn btn-info submit-btn" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->

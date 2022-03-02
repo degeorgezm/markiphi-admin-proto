@@ -1,0 +1,135 @@
+<div class="container-fluid" *ngIf="loaded">
+    <div class="card">
+        <div class="m-t-15">
+            <button class="btn btn-outline-dark m-r-10 edit-button edit-button" type="button"
+                (click)="exit()">Exit</button>
+            <button class="btn btn-outline-primary m-r-10 edit-button" type="button" (click)="edit()">Edit
+                Promotion</button>
+        </div>
+        <div class="row product-page-main card-body">
+            <div class="col-xl-12">
+                <h6>ID</h6>
+                <p class="mb-0">{{promotion._id}}</p>
+                <span>&nbsp;</span>
+                <h6>Title</h6>
+                <p class="mb-0">{{promotion.title}}</p>
+                <span>&nbsp;</span>
+                <h6>Type</h6>
+                <p class="mb-0">{{promotion.type}}</p>
+                <span>&nbsp;</span>
+                <h6>Value</h6>
+                <p class="mb-0" *ngIf="promotion.type == 'amount'">${{promotion.value}}</p>
+                <p class="mb-0" *ngIf="promotion.type == 'percentage'">{{promotion.value}}%</p>
+                <span>&nbsp;</span>
+                <h6>Minimum</h6>
+                <p class="mb-0">${{promotion.minimum}}</p>
+                <span>&nbsp;</span>
+                <h6>Maximum</h6>
+                <p class="mb-0" *ngIf="promotion.maximum != 0">${{promotion.maximum}}</p>
+                <p class="mb-0" *ngIf="promotion.maximum == 0">-</p>
+                <span>&nbsp;</span>
+                <h6>Stackable</h6>
+                <p class="mb-0">{{promotion.stackable}}</p>
+                <span>&nbsp;</span>
+                <h6>Free Shipping</h6>
+                <p class="mb-0">{{promotion.free_shipping}}</p>
+                <span>&nbsp;</span>
+                <h6>Start</h6>
+                <p class="mb-0">{{promotion.start.toString()}}</p>
+                <span>&nbsp;</span>
+                <h6>End</h6>
+                <p class="mb-0">{{promotion.end.toString()}}</p>
+                <span>&nbsp;</span>
+                <h6>Active</h6>
+                <p class="mb-0">{{promotion.active}}</p>
+                <span>&nbsp;</span>
+                <h6>Details</h6>
+                <div class="mb-0" [innerHTML]="promotion.description"></div>
+                <span>&nbsp;</span>
+                <h6 *ngIf="promotion.brands.length > 0">Brands</h6>
+                <p class="mb-0" *ngIf="promotion.brands.length > 0">{{brandNames.join(', ')}}</p>
+                <span>&nbsp;</span>
+                <span *ngIf="promotion.brands.length > 0">&nbsp;</span>
+                <h6 *ngIf="promotion.departments.length > 0">Departments</h6>
+                <p class="mb-0" *ngIf="promotion.departments.length > 0">{{departmentNames.join(', ')}}</p>
+                <span>&nbsp;</span>
+                <h6 *ngIf="promotion.types.length > 0">Types</h6>
+                <p class="mb-0" *ngIf="promotion.types.length > 0">{{typeNames.join(', ')}}</p>
+                <span>&nbsp;</span>
+                <h6 *ngIf="promotion.variants.length > 0">Variants</h6>
+                <p class="mb-0" *ngIf="promotion.variants.length > 0">{{variantNames.join(', ')}}</p>
+                <span>&nbsp;</span>
+                <h6 *ngIf="promotion.groups.length > 0">Groups</h6>
+                <p class="mb-0" *ngIf="promotion.groups.length > 0">{{groupNames.join(', ')}}</p>
+                <span>&nbsp;</span>
+                <h6>Total Item Count</h6>
+                <p class="mb-0">{{products.length}}</p>
+                <span>&nbsp;</span>
+            </div>
+        </div>
+        <div class="m-t-15">
+            <button class="btn btn-primary m-r-10 edit-button exit-button" type="button"
+                (click)="open(content)">Delete</button>
+        </div>
+        <ng-template #content let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Promotion</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h6 style="margin-top: 7px;">Are you sure you wish to permanently delete?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark"
+                    (click)="modal.close('Cancel Delete')">Cancel</button>
+                <button type="button" class="btn btn-primary"
+                    (click)="modal.close('Confirm Delete');delete()">Delete</button>
+            </div>
+        </ng-template>
+    </div>
+    <h3 *ngIf="products.length > 0">Products</h3>
+    <div class="row products-admin ratio_asos" style="margin-top: 30px;">
+        <div class="col-xl-3 col-sm-6" *ngFor="let product of products">
+            <div class="card" style="height: 330px;">
+                <div class="card-body product-box">
+                    <div class="img-wrapper">
+                        <div class="lable-block"><span class="lable3" *ngIf="product.tag == 'new'">new</span> <span
+                                class="lable4" *ngIf="product.sale == 'on sale'">on sale</span></div>
+                        <div class="front"
+                            style="max-height: 200px; max-width: 200px; margin-left: auto; margin-right: auto;">
+                            <a href="javascript:void(0)"><img [src]="product.image.src"
+                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                            <div class="product-hover">
+                                <ul>
+                                    <li>
+                                        <button class="btn" type="button" data-original-title="" title=""><i
+                                                class="icon-pencil-alt"
+                                                routerLink="/products/product-detail/{{product._id}}"></i></button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-detail">
+                        <div class="product-title" style="height: 55px; margin-top: 10px; text-align: center;">
+                            <a href="javascript:void(0)">
+                                <h6>{{product.title}}</h6>
+                            </a>
+                        </div>
+                        <div class="product-price" style="text-align: center;">
+                            <h4 *ngIf="product.sale; else regularprice">${{(product.price -
+                                product.discount).toFixed(2)}}
+                                <del>${{product.price}}</del>
+                            </h4>
+                            <ng-template #regularprice>
+                                <h4>${{product.price}}</h4>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

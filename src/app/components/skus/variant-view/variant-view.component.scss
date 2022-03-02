@@ -1,0 +1,35 @@
+.edit-button {
+    position: relative;
+    right: 7px;
+    float: right;
+    width: 160px;
+}
+
+.exit-button {
+    margin-bottom: 14px;
+}
+
+.product_cards {
+    background-color: transparent;
+    border: none;
+}
+
+.image-label {
+    width: 100%;
+}
+
+.image {
+    height: 300px;
+    width: 300px;
+    border: 1px solid #CED4DA;
+}
+
+.img-with-text {
+    text-align: justify;
+    width: 300px;
+}
+
+.img-with-text img {
+    display: block;
+    margin: 0 auto;
+}

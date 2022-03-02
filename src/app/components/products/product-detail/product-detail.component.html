@@ -1,0 +1,112 @@
+<div class="container-fluid" *ngIf="loaded">
+    <div class="m-t-15">
+        <button class="btn btn-primary m-r-10 back-button" type="button"
+            routerLink="/products/product-view">Back</button>
+    </div>
+    <div class="card">
+        <div class="m-t-15">
+            <button class="btn btn-primary m-r-10 edit-button" type="button"
+                routerLink="/products/product-edit/{{product._id}}">Edit Product</button>
+
+            <button class="btn btn-light m-r-10 edit-button" type="button"
+                routerLink="/products/product-sales/{{product._id}}">Manage Sales</button>
+        </div>
+        <div class="row product-page-main card-body">
+            <div class="col-xl-4">
+                <mdb-carousel [animation]="'slide'" #carousel>
+                    <mdb-carousel-item *ngFor="let image of product.images; let i=index">
+                        <img class="d-block w-100" [src]="image.src">
+                    </mdb-carousel-item>
+                </mdb-carousel>
+                <hr>
+                <span *ngFor="let image of product.images; let i=index" class="inline-picture"><a (click)="goToSlide(i)"
+                        href="javascript:void(0)"><img [src]="image.src" class="sub-photo"></a></span>
+            </div>
+            <div class="col-xl-8">
+                <div class="product-page-details product-right mb-0">
+                    <h2>{{product.title}}</h2>
+                    <!-- <ngb-rating [rate]="3" class="rating-size-product"></ngb-rating> -->
+                    <hr>
+                    <h6 class="product-title">product details</h6>
+                    <div class="mb-0" [innerHTML]="product.description">
+                    </div>
+                    <div class="product-price digits mt-2">
+                        <h3 *ngIf="product.sale; else regularprice">${{(product.price - product.discount).toFixed(2)}}
+                            <del>${{product.price}}</del>
+                        </h3>
+                        <ng-template #regularprice>
+                            <h3>${{product.price}}</h3>
+                        </ng-template>
+                    </div>
+                    <hr>
+                    <h6 class="product-title">product code</h6>
+                    <p class="mb-0">{{product.code}}</p>
+                    &nbsp;
+                    <h6 class="product-title">product id</h6>
+                    <p class="mb-0">{{product._id}}</p>
+                    &nbsp;
+                    <h6 class="product-title">product brand</h6>
+                    <p class="mb-0">{{product.brand.name}}</p>
+                    &nbsp;
+                    <h6 class="product-title">product type</h6>
+                    <p class="mb-0">{{product.type.name}}</p>
+                    &nbsp;
+                    <h6 class="product-title">product line</h6>
+                    <p class="mb-0">{{product.department.name}}</p>
+                    &nbsp;
+                    <h6 class="product-title">product tags</h6>
+                    <p class="mb-0">{{product.tags.join(', ')}}</p>
+                    <hr>
+                    <div class="size-box">
+                        <h6 class="product-title">sizes</h6>
+                        <ul>
+                            <li *ngFor="let size of product.sizes"><a href="javascript:void(0)">{{size.name}}</a></li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="variant-box">
+                        <h6 class="product-title">Variants</h6>
+                        <ul>
+                            <li *ngFor="let variant of product.variants"><a
+                                    href="javascript:void(0)">{{variant.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="variant-box">
+                        <h6 class="product-title">Groups</h6>
+                        <ul>
+                            <li *ngFor="let group of product.groups"><a href="javascript:void(0)">{{group.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="add-product-form">
+                        <h6 class="product-title" style="padding-top: 10px">inventory</h6>
+                        &nbsp;
+                        <inventory-table [product]="product"></inventory-table>
+                    </div>
+                    <hr>
+                    <div class="add-product-form">
+                        <h6 class="product-title" style="padding-top: 10px">sold</h6>
+                        &nbsp;
+                        <sold-table [product]="product"></sold-table>
+                    </div>
+                    <hr>
+                    <div class="add-product-form">
+                        <h6 class="product-title" style="padding-top: 10px">Lost</h6>
+                        &nbsp;
+                        <loss-table [product]="product"></loss-table>
+                    </div>
+                    <hr>
+                    <div *ngIf="!mobile" class="add-product-form">
+                        <h6 class="product-title" style="padding-top: 10px">skus</h6>
+                        &nbsp;
+                        <sku-table [product]="product"></sku-table>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
